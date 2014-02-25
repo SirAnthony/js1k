@@ -7,83 +7,84 @@ G = {
 	f:'fill',
 	fr:'fillRect',
 	ft:'fillText',
+	i:'indexOf',
+	s:'splice',
+	e:'forEach',
+	u:'unshift',
+	l:'length'
 };
-gw = a.width;
-gh = 400;
-O = function(w,h,x,y,vx,vy,fs,cd){
+abs=Math.abs;
+W = a.width;
+H = 400;
+O = function(w,h,x,y,vx,vy,f,cd,r){
 	var s = {
 		z:[w,h],
 		p:{x:x,y:y},
 		v:{x:vx,y:vy},
-		t:function(t){
+		T:function(t){
 			s.p.x+=s.v.x*t;s.p.y+=s.v.y*t;
-			s.p.x < -w && (s==pl ? s.p.x=-w+1 : s.e());
-			cd && s.cl(pl) && (pl.e() || s.e());
-			s==pl && (s.p.x > (gw-w) && (s.p.x=gw-w)) ||
-				(s.p.y < -h || s.p.y > gh) && s.e();
+			s.p.x < -w && (s==P ? s.p.x=-w+1 : s.E());
+			cd && s.C(P) && (P.E() || s.E());
+			s==P && (s.p.x > (W-w) && (s.p.x=W-w)) ||
+				(s.p.y < -h || s.p.y > H) && s.E();
 		},
-		d:function(){
-			c[G.fs] = fs;
+		D:function(){
+			c[G.fs] = f;
 			c[G.fr](s.p.x,s.p.y,w,h);
 			c[G.f]();
 		},
-		e:function(){
-			((s==pl) && ((s.l-- > 0) && (s.p.x=x,s.p.y=y))) ||
-			om.splice(om.indexOf(s),1);
+		E:function(){
+			((s==P) && ((s.l-- > 0) && (s.p.x=x,s.p.y=y))) ||
+			M[r].splice(M[r].indexOf(s),1);
+			P.l>=0&&P.s++;
 		},
-		cl:function(o){
-			return (Math.abs(o.p.x-s.p.x)<(w/2+o.z[0]/2)) &&
-				(Math.abs(o.p.y-s.p.y)<(h/2+o.z[1]/2));
+		C:function(o){
+			return (abs(o.p.x-s.p.x)<(w/2+o.z[0]/2)) &&
+				(abs(o.p.y-s.p.y)<(h/2+o.z[1]/2));
 		}
-	}
+	};
 	return s;
 };
 
-pl=new O(110,70,10,300,0,0,G.r);
-function dr(kk, t){
+P=new O(110,70,10,300,0,0,G.r,0,1);
+K=function dr(kk, t){
 	for(i in t)
 		if(kk==i)
 			return t[i];
 };
-kev = function(v,px,py) {
+V = function(v,px,py) {
 	return function(e){
-		v.x=dr(e.keyCode, px) || 0;
-		v.y=dr(e.keyCode, py) || 0;
+		k=e.keyCode;
+		v.x=K(k, px) || 0;
+		v.y=K(k, py) || 0;
 	}
 };
-b.onkeydown = kev(pl.v,{68:1,65:-1},{87:-1,83:1});
-b.onkeyup = kev(pl.v,{68:0,65:0},{87:0,83:0});
-dn=Date.now;
-ts=dn();
-om=[pl];
-pl.l=3;
-function E(){
-	if (om.length < 2)
-		om.unshift(
-			new O(120,8,gw,60,-0.4,0,G.w),
-			new O(120,8,gw,180,-0.4,0,G.w),
-			new O(120,8,gw,300,-0.4,0,G.w)
-		);
-	if (om.length < 5)
-		om.unshift(
-			new O(110,70,gw,60,-0.4,0,G.y,1)
+b.onkeydown = V(P.v,{68:1,65:-1},{87:-1,83:1});
+b.onkeyup = V(P.v,{68:0,65:0},{87:0,83:0});
+N=Date.now;
+S=N();M=[[],[P]];A=M[0];B=M[1];P.l=3;P.s=0;
+R=Math.random
+rd='new O(120,8,W,60+120*A[G.l],-0.4,0,G.w,0,0);';
+function E(d){
+	!A[G.l] && A[G.u](eval(rd))	&&
+		A[G.u](eval(rd)) &&
+		A[G.u](eval(rd));
+	d%R() > 0.8 && B[G.l] < 8 && B[G.u](
+			new O(110,70,W,R()*H,-R(),0,G.y,1,1)
 		);
 }
 c.font = "bold 35px Arial";
-(function L(){
+~function L(){
 	requestAnimationFrame(L);
-	dt=dn()-ts;
-	ts+=dt;
-	E();
-	c.clearRect(0,0,gw,gh);
+	D=N()-S;
+	E(S+=D);
+	c.clearRect(0,0,W,a.height);
 	c[G.fs]=G.g;
-	c[G.fr](0,0,gw,gh);
+	c[G.fr](0,0,W,H);
 	c[G.f]();
-	om.forEach(function(o){
-		o.t(dt);
-		o.d();
-	})
+	p=function(o){o.T(D);o.D();}
+	A[G.e](p);B[G.e](p);
 	c[G.fs] = G.y;
-	c[G.ft]("Lives: "+pl.l,0,40);
-	pl.l < 0 && c[G.ft]("Game over",gw/2.5,250);
-})()
+	c[G.ft]("Lives: "+P.l,0,40);
+	P.l < 0 && c[G.ft]("Game over. Score: "+P.s,W/2.5,250);
+}()
