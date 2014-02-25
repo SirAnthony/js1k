@@ -10,66 +10,60 @@ W=a.width,
 H=a.height,
 j=120,
 u=70;
-O=function(w,h,x,y,X,Y,F,r,cd){
+O=function(w,h,x,y,X,F,r,Y){
 	var s={
 		z:[w,h],
 		p:{x:x,y:y},
-		v:{x:X,y:Y},
-		T:function(t){
-			s.p.x += s.v.x*t;
-			s.p.y += s.v.y*t;
-			s.p.x <- w && (s==P?s.p.x=-w+1:s.E());
-			cd && s.C(P) && (P.E() || s.E());
-			s == P && (s.p.x > (W - w) && (s.p.x = W - w)) || (s.p.y < -h || s.p.y > H) && s.E();
-		},
-		D:function(){
+		v:{x:X,y:0}
+	}, D=s.p;
+	s.T=function(t){
+			D.x += s.v.x*t;
+			D.y += s.v.y*t;
+			D.x <- w && (s==P?D.x=-w+1:s.E());
+			Y && s.C() && (P.E() || s.E());
+			s == P && D.x > W-w && (D.x = W - w) || (D.y < -h || D.y > H) && s.E();
 			c[f] = F;
-			c[J](s.p.x,s.p.y,w,h);
-			c[G]();
-		},
-		E:function(){
-			(s==P && (--s.l>0) && (s.p.x=x,s.p.y=y)) ||
-			M[r].splice(M[r].indexOf(s),1);
-			P.l > 0 && P.s++;
-		},
-		C:function(o){
-			return (Z(o.p.x-s.p.x)<(w/2+o.z[0]/2)) &&
-				   (Z(o.p.y-s.p.y)<(h/2+o.z[1]/2));
-			}
-	};
+			c[J](D.x,D.y,w,h);
+			c[G]()
+	}
+	s.E=function(){
+			s==P && 0 < --s.l && (D.x=x,D.y=y) ||
+			r.splice(r.indexOf(s),1);
+			0 < P.l && P.s++
+	}
+	s.C=function(){
+		return P.l>0 && Z(P.p.x-D.x)<w/2+P.z[0]/2 &&
+			Z(P.p.y-D.y)<h/2+P.z[1]/2
+	}
 	return s;
 };
-
-P=new O(j,u,10,300,0,0,'red',1);
-K=function dr(kk,t){
+M=[A=[],B=[]];
+B[q](P=new O(j,u,10,300,0,'red',B));
+K=function(t){
 	for(i in t)
-		if(kk==i)
+		if(k==i)
 			return t[i];
 };
-C=function(v,px,py) {
+C=function(px,py) {
 	return function(e){
 		k = e.keyCode;
-		v.x = K(k,px) || 0;
-		v.y = K(k,py) || 0;
+		P.v.x = K(px) || 0;
+		P.v.y = K(py) || 0;
 	}
 };
-b.onkeydown = C(P.v,{68:1,65:-1},{87:-1,83:1});
-b.onkeyup = C(P.v,{68:0,65:0},{87:0,83:0});
+b.onkeydown = C({68:1,65:-1},{87:-1,83:1});
+b.onkeyup = C({68:0,65:0},{87:0,83:0});
 N = Date.now;
 S=N();
-M=[[],[P]];
-A=M[0];
-B=M[1];
-P.l=3;
-P.s=0;
+P.s=P.l=3;
 R=Math.random;
-rd='new O(j,8,W,u+j*A[V],-0.4,0,"white",0);';
+rd='new O(j,8,W,u+j*A[V],-0.4,"white",A);';
 function E(d){
 	if(!A[V]) while(A[V]<5) A[q](eval(rd));
 	d % R() > 0.8 && B[V] < 8 &&
-		B[q](new O(j,u,W,R()*H,-R(),0,'yellow',1,1));
+		B[q](new O(j,u,W,R()*H,-R(),'yellow',B,1));
 	}
-c.font="35px Arial";
+c.font="35px Sans";
 ~function L(){
 	requestAnimationFrame(L);
 	D=N()-S;
@@ -78,9 +72,9 @@ c.font="35px Arial";
 	c[f]='gray';
 	c[J](0,0,W,H);
 	c[G]();
-	p=function(o){ o.T(D);o.D(); }
+	p=function(o){ o.T(D) }
 	A[U](p);
-	c[Q]("Lives: "+P.l,0,u);
-	P.l <= 0 && c[Q]("Game over. Score: "+P.s,W/2.5,250);
+	c[Q]("♥"+P.l,0,u);
+	0 >= P.l && c[Q]("Score: "+P.s,W/2.5,250);
 	B[U](p);
 }()
