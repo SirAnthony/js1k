@@ -43,8 +43,8 @@ C=function(d) {
 	v=83,F=87,z=68;
 	return function(e){
 		k = e.keyCode;
-		P.v = d * (k == z ? 1 : k == u ? -1 : 0);
-		P.V = d * (k == v ? 1 : k == F ? -1 : 0);
+		P.v = d * (k - z ? k - u ? 0 : -1 : 1);
+		P.V = d * (k - v ? k - F ? 0 : -1 : 1);
 	}
 };
 b.onkeydown = C(1);
