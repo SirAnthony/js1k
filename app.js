@@ -72,6 +72,7 @@ c.font='35px Sans';
 	p=function(o){ o.T(D) }
 	A[U](p);
 	B[U](p);
+	c[f] = _[0];
 	c[Q]('♥'+P.l,9,40);
 	0 >= P.l && c[Q]('Score: '+~~P.s,W/2.5,250);
 }()
