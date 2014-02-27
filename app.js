@@ -1,7 +1,6 @@
 f='fillStyle',
 U='forEach',
 V='length',
-q='unshift',
 G='fill',
 J='fillRect',
 Q='fillText',
@@ -10,8 +9,6 @@ W=a.width,
 H=a.height,
 j=120,
 u=65;
-v=83;
-z=68;
 _=['#FFF','#FF3','red'];
 $=eval;
 function O(w,h,x,y,X,r,F){
@@ -20,6 +17,7 @@ function O(w,h,x,y,X,r,F){
 		z:w,Z:h,
 		p:x,P:y,
 	};
+	r.unshift(s);
 	s.T=function(t){
 			s.p += s.v*t;
 			s.P += s.V*t;
@@ -32,7 +30,7 @@ function O(w,h,x,y,X,r,F){
 			c[f] = _[F];
 			c[J](s.p,s.P,w,h);
 			c[f] = '#06F';
-			F && c[J](s.p+v,s.P+5,9,u-9)
+			F && c[J](s.p+(X<-0.4?20:80),s.P+5,9,u-9)
 			c[G]()
 	}
 	s.E=function(){
@@ -43,23 +41,24 @@ function O(w,h,x,y,X,r,F){
 	return s;
 };
 M=[A=[],B=[]];
-B[q](P=new O(j,u,9,300,0,B,2));
+P=O(j,u,9,H/2,0,B,2);
 C=function(d) {
-	F=87;
 	return function(e){
 		k = e.keyCode;
-		P.v = d * (k - z ? k - u ? 0 : -1 : 1);
-		P.V = d * (k - v ? k - F ? 0 : -1 : 1);
+		P.v = d * (k - 68 ? k - u ? 0 : -1 : 1);
+		P.V = d * (k - 83 ? k - 87 ? 0 : -1 : 1);
+		z++
 	}
 };
 b.onkeydown = C(1);
 b.onkeyup = C(0);
 N = Date.now;
 S = N();
-P.s = P.l = 3;
+z = P.s = 0;
+P.l = 3;
 R = Math.random;
-r = 'new O(j,8,W,u+j*A[V],-0.4,A,0)';
-E = 'if(!A[V])while(A[V]<5)A[q]($(r));S%R()>0.8&&B[V]<8&&B[q](new O(j,u,W,R()*H,-R(),B,1))';
+r = 'O(j,8,W,u+j*A[V],-0.4,A,0)';
+E = 'if(!A[V])while(A[V]<H/j)$(r);z>3&&S%R()>0.8&&B[V]<8&&O(j,u,W,R()*H,-R(),B,1)';
 c.font='35px Sans';
 ~function L(){
 	requestAnimationFrame(L);
@@ -72,7 +71,7 @@ c.font='35px Sans';
 	c[G]();
 	p=function(o){ o.T(D) }
 	A[U](p);
+	B[U](p);
 	c[Q]('♥'+P.l,9,40);
 	0 >= P.l && c[Q]('Score: '+~~P.s,W/2.5,250);
-	B[U](p);
 }()
