@@ -1,15 +1,49 @@
-f='fillStyle',
-U='forEach',
-V='length',
-G='fill',
-J='fillRect',
-Q='fillText',
-Z=Math.abs,
-W=a.width,
-H=a.height,
-j=120,
-u=65;
-_=['#FFF','#FF3','red'];
+//
+// Variables:
+// f,U,V,G,J,Q,Z,R,N - shortcuts for functions
+// W,H - window size
+// j,u - magic numbers
+// _ - colors for objects (index is type)
+// S,D - timer holders
+//
+// M - objects arrays, A - for strips, B - for cars
+// P - player object
+// l - player lives
+// v - player score
+//
+// Functions:
+// C - Keyboard processor
+// r - restart
+// E - object generator, generates objects until some conditions reached
+// L - main loop, inner function p is shortcut for forEach call
+//
+// O - game object:
+// Variables:
+// s - `this` variable
+// w,h,x,y (s.z,s.Z,s.p,s.P) - width, height, position x, position y
+// X (s.v) - velocity on the x axis
+// s.V - velocity on the y axis, only player using this
+// r - array to hold object
+// F - object type: 0 - strip, 1 - enemy, 2 - player
+// Functions
+// T - main tick processor
+// E - remove event processor
+//
+
+U = 'forEach',
+V = 'length',
+G = 'fill',
+f = 'fillStyle',
+J = 'fillRect',
+Q = 'fillText',
+Z = Math.abs,
+R = Math.random;
+N = Date.now;
+W = a.width,
+H = a.height,
+j = 120,
+u = 65;
+_ = ['#FFF','#FF3','red'];
 P = 0;
 function O(w,h,x,y,X,r,F){
 	var s={
@@ -52,7 +86,6 @@ C = function(d) {
 }
 b.onkeydown = C(1);
 b.onkeyup = C(0);
-N = Date.now;
 S = N();
 (r = function(){
 	P && (l=0, P.E());
@@ -60,7 +93,6 @@ S = N();
 	z = v = 0;
 	l = 3
 })();
-R = Math.random;
 E = function(){
 	if(!A[V])
 		while(A[V]<H/j)
