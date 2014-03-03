@@ -97,7 +97,7 @@ E = function(){
 	if(!A[V])
 		while(A[V]<H/j)
 			O(j,8,W,u+j*A[V],-0.4,A,0);
-	z > 3 && S % R() > 0.8 && B[V] < 8 && O(j,u,W,R()*H,-R(),B,1)
+	z > 2 && S % R() > 0.8 && B[V] < 8 && O(j,u,W,R()*H,-R(),B,1)
 }
 c.font='35px Sans';
 (function L(){
